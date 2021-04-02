@@ -147,13 +147,18 @@ def edit_drink(id):
         or appropriate status code indicating reason for failure
 '''
 @app.route("/drinks/<id>", methods = "DELETE")
+@requires_auth('delete:drinks')
 def delete_drink(id):
     drink = Drink.query.filter_by(id).one_or_none()
 
     if drink is None:
         abort(404)
     
-    drink.delete()
+    try:
+        drink.delete()
+    except:
+        abort(500)
+    
 
     return jsonify({
         "success": True,
@@ -191,6 +196,17 @@ def not_found(error=None):
 
     return resp
 
+@app.errorhandler(422)
+def not_found(error=None):
+    message = {
+            'success': False,
+            'error': 500,
+            'message': 'unprocessable'
+    }
+    resp = jsonify(message)
+    resp.status_code = 500
+
+    return resp
 '''
 @TODO implement error handler for AuthError
 '''

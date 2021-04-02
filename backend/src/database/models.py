@@ -11,7 +11,7 @@ db = SQLAlchemy()
 
 '''
 setup_db(app)
-    binds a flask application and a SQLAlchemy service
+    binds aP flask application and a SQLAlchemy service
 '''
 
 
@@ -38,9 +38,9 @@ def db_drop_and_create_all():
         title='water',
         recipe='[{"name": "water", "color": "blue", "parts": 1}]'
     )
+    drink.insert()
 
 
-drink.insert()
 # ROUTES
 
 '''
@@ -51,7 +51,7 @@ a persistent drink entity, extends the base SQLAlchemy Model
 
 class Drink(db.Model):
     # Autoincrementing, unique primary key
-    id = Column(Integer().with_variant(Integer, "sqlite"), primary_key=True)
+    id = Column(Integer().with_variant(Integer, "postgresql"), primary_key=True)
     # String Title
     title = Column(String(80), unique=True)
     # the ingredients blob - this stores a lazy json blob
