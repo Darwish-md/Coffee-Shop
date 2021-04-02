@@ -78,7 +78,7 @@ def add_drink():
     new_drink.insert()
     
     drink = [new_drink.long()]
-    
+
     return jsonify({
         "success": True,
         "drinks": drink
@@ -96,16 +96,36 @@ def add_drink():
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
         or appropriate status code indicating reason for failure
 '''
+
+
 @app.route("/drinks/<id>", methods = ["PATCH"])
 def edit_drink(id):
     body = request.get_json()
     
-    drink
     title = body.get("title", None)
     recipe = body.get("recipe", None)
 
+    drink = Drink.query.filter(Drink.id == id).one_or_none().update({
+
+    })
+
+     if drink is None:
+        abort(404)
+
     
-    drink.insert()
+    
+    if not title:
+        drink.title = title
+
+    if not recipe:
+        drink.recipe = recipe
+
+    drink.update()
+
+    return jsonify({
+        "success": True, 
+        "drinks": drink
+    })
 
 '''
 @TODO implement endpoint
@@ -132,6 +152,17 @@ def unprocessable(error):
         "error": 422,
         "message": "unprocessable"
     }), 422
+
+@app.errorhandler(404)
+def not_found(error=None):
+    message = {
+            'status': 404,
+            'message': 'Not Found: ' + request.url,
+    }
+    resp = jsonify(message)
+    resp.status_code = 404
+
+    return resp
 
 
 '''
