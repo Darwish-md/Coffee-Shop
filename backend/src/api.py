@@ -28,6 +28,15 @@ CORS(app)
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
+@app.route("/drinks", methods = ["GET"])
+def get_drinks():
+    drinks_short_recipe = Drink.query.order_by(id).all()
+    drinks= [drink.short() for drink in drinks_short_recipe]
+
+    return jsonify({
+        "success": True,
+        "drinks": drinks
+    })
 
 
 '''
@@ -38,7 +47,15 @@ CORS(app)
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
+@app.route("/drinks-detail", methods = ["GET"])
+def get_drinks_details():
+    drinks_detailed_recipe = Drink.query.order_by(id).all()
+    drinks = [drink.long() fro drink in drinks_detailed_recipe]
 
+    return jsonify({
+        "success": True, 
+        "drinks": drinks
+    })
 
 '''
 @TODO implement endpoint
@@ -49,6 +66,23 @@ CORS(app)
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
         or appropriate status code indicating reason for failure
 '''
+
+@app.route("/drinks", methods = ["POST"])
+def add_drink():
+    body = request.get_json()
+    
+    title = body.get("title")
+    recipe = body.get("recipe")
+
+    new_drink = Drink(title = title, recipe = recipe)
+    new_drink.insert()
+    
+    drink = [new_drink.long()]
+    
+    return jsonify({
+        "success": True,
+        "drinks": drink
+    })
 
 
 '''
@@ -62,7 +96,16 @@ CORS(app)
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
         or appropriate status code indicating reason for failure
 '''
+@app.route("/drinks/<id>", methods = ["PATCH"])
+def edit_drink(id):
+    body = request.get_json()
+    
+    drink
+    title = body.get("title", None)
+    recipe = body.get("recipe", None)
 
+    
+    drink.insert()
 
 '''
 @TODO implement endpoint
