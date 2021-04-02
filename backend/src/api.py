@@ -77,11 +77,10 @@ def add_drink():
     new_drink = Drink(title = title, recipe = recipe)
     new_drink.insert()
     
-    drink = [new_drink.long()]
 
     return jsonify({
         "success": True,
-        "drinks": drink
+        "drinks": [new_drink.long()]
     })
 
 
@@ -105,26 +104,22 @@ def edit_drink(id):
     title = body.get("title", None)
     recipe = body.get("recipe", None)
 
-    drink = Drink.query.filter(Drink.id == id).one_or_none().update({
-
-    })
+    drink = Drink.query.filter(Drink.id == id).one_or_none()
 
      if drink is None:
         abort(404)
 
-    
-    
-    if not title:
+    if title:
         drink.title = title
 
-    if not recipe:
+    if recipe:
         drink.recipe = recipe
 
     drink.update()
 
     return jsonify({
         "success": True, 
-        "drinks": drink
+        "drinks": [drink.long()]
     })
 
 '''
@@ -137,6 +132,19 @@ def edit_drink(id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
+@app.route("/drinks/<id>", methods = "DELETE")
+def delete_drink(id):
+    drink = Drink.query.filter_by(id).one_or_none()
+
+    if drink is None:
+        abort(404)
+    
+    drink.delete()
+
+    return jsonify({
+        "success": True,
+        "delete": id
+    })
 
 
 # Error Handling
@@ -146,24 +154,34 @@ Example error handling for unprocessable entity
 
 
 @app.errorhandler(422)
-def unprocessable(error):
-    return jsonify({
-        "success": False,
-        "error": 422,
-        "message": "unprocessable"
-    }), 422
-
-@app.errorhandler(404)
 def not_found(error=None):
     message = {
-            'status': 404,
-            'message': 'Not Found: ' + request.url,
+            'success': False,
+            'error': 422,
+            'message': 'unprocessable'
     }
     resp = jsonify(message)
     resp.status_code = 404
 
     return resp
 
+@app.errorhandler(404)
+def not_found(error=None):
+    message = {
+            'success': False,
+            'error': 404,
+            'message': 'resource not found: ' + request.url
+    }
+    resp = jsonify(message)
+    resp.status_code = 404
+
+    return resp
+
+@app.errorhandler(AuthError)
+def handle_auth_error(ex):
+    response = jsonify(ex.error)
+    response.status_code = ex.status_code
+    return response
 
 '''
 @TODO implement error handlers using the @app.errorhandler(error) decorator
