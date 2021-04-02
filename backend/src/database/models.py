@@ -51,7 +51,7 @@ a persistent drink entity, extends the base SQLAlchemy Model
 
 class Drink(db.Model):
     # Autoincrementing, unique primary key
-    id = Column(Integer().with_variant(Integer, "postgresql"), primary_key=True)
+    id = Column(Integer().with_variant(Integer, "sqlite"), primary_key=True)
     # String Title
     title = Column(String(80), unique=True)
     # the ingredients blob - this stores a lazy json blob

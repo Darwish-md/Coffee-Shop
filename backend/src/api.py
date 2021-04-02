@@ -4,13 +4,18 @@ from sqlalchemy import exc
 import json
 from flask_cors import CORS
 
-from .database.models import db_drop_and_create_all, setup_db, Drink
-from .auth.auth import AuthError, requires_auth
+from database.models import db_drop_and_create_all, setup_db, Drink
+from auth.auth import AuthError, requires_auth
 
 app = Flask(__name__)
 setup_db(app)
-CORS(app)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
 '''
 @TODO uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
@@ -31,9 +36,9 @@ db_drop_and_create_all()
 
 @app.route("/drinks", methods = ["GET"])
 def get_drinks():
-    drinks_short_recipe = Drink.query.order_by(id).all()
+    drinks_short_recipe = Drink.query.order_by(Drink.id).all()
     drinks= [drink.short() for drink in drinks_short_recipe]
-
+    
     return jsonify({
         "success": True,
         "drinks": drinks
@@ -52,8 +57,8 @@ def get_drinks():
 @app.route("/drinks-detail", methods = ["GET"])
 @requires_auth("get:drinks-detail")
 def get_drinks_details():
-    drinks_detailed_recipe = Drink.query.order_by(id).all()
-    drinks = [drink.long() fro drink in drinks_detailed_recipe]
+    drinks_detailed_recipe = Drink.query.order_by(Drink.id).all()
+    drinks = [drink.long() for drink in drinks_detailed_recipe]
 
     return jsonify({
         "success": True, 
@@ -71,7 +76,7 @@ def get_drinks_details():
 '''
 
 @app.route("/drinks", methods = ["POST"])
-@requires_auth("post:drinks")
+#@requires_auth("post:drinks")
 def add_drink():
     body = request.get_json()
     try: 
@@ -146,7 +151,7 @@ def edit_drink(id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
-@app.route("/drinks/<id>", methods = "DELETE")
+@app.route("/drinks/<id>", methods = ["DELETE"])
 @requires_auth('delete:drinks')
 def delete_drink(id):
     drink = Drink.query.filter_by(id).one_or_none()
@@ -196,15 +201,27 @@ def not_found(error=None):
 
     return resp
 
-@app.errorhandler(422)
+@app.errorhandler(500)
 def not_found(error=None):
     message = {
             'success': False,
             'error': 500,
-            'message': 'unprocessable'
+            'message': 'internal server error'
     }
     resp = jsonify(message)
     resp.status_code = 500
+
+    return resp
+
+@app.errorhandler(400)
+def not_found(error=None):
+    message = {
+            'success': False,
+            'error': 400,
+            'message': 'Bad request'
+    }
+    resp = jsonify(message)
+    resp.status_code = 400
 
     return resp
 '''

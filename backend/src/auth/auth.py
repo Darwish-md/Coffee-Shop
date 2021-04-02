@@ -95,6 +95,8 @@ def verify_decode_jwt(token):
                     audience=API_AUDIENCE,
                     issuer="https://"+AUTH0_DOMAIN+"/"
                 )
+                return payload
+                
             except jwt.ExpiredSignatureError:
                 raise AuthError({"code": "token_expired",
                                 "description": "token is expired"}, 401)
@@ -109,7 +111,6 @@ def verify_decode_jwt(token):
                                     "Unable to parse authentication"
                                     " token."}, 401)
 
-            return payload
         raise AuthError({"code": "invalid_header",
                         "description": "Unable to find appropriate key"}, 401)
 
