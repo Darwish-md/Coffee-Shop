@@ -17,7 +17,7 @@ CORS(app)
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 !! Running this funciton will add one
 '''
-# db_drop_and_create_all()
+db_drop_and_create_all()
 
 # ROUTES
 '''
@@ -148,10 +148,6 @@ def delete_drink(id):
 
 
 # Error Handling
-'''
-Example error handling for unprocessable entity
-'''
-
 
 @app.errorhandler(422)
 def not_found(error=None):
@@ -165,6 +161,10 @@ def not_found(error=None):
 
     return resp
 
+'''
+@TODO implement error handler for 404
+'''
+
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
@@ -177,30 +177,25 @@ def not_found(error=None):
 
     return resp
 
+'''
+@TODO implement error handler for AuthError
+'''
+
 @app.errorhandler(AuthError)
 def handle_auth_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
 
-'''
-@TODO implement error handlers using the @app.errorhandler(error) decorator
-    each error handler should return (with approprate messages):
-             jsonify({
-                    "success": False,
-                    "error": 404,
-                    "message": "resource not found"
-                    }), 404
 
-'''
+#----------------------------------------------------------------------------#
+# Launch.
+#----------------------------------------------------------------------------#
 
-'''
-@TODO implement error handler for 404
-    error handler should conform to general task above
-'''
+# Default port:
+if __name__ == '__main__':
+    app.run()
 
 
-'''
-@TODO implement error handler for AuthError
-    error handler should conform to general task above
-'''
+
+
