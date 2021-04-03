@@ -1,7 +1,7 @@
 
 url to access login page:
 https://{{YOUR_DOMAIN}}/authorize?audience={{API_IDENTIFIER}}&response_type=token&client_id={{YOUR_CLIENT_ID}}&redirect_uri={{YOUR_CALLBACK_URI}}
-example: https://md0403.eu.auth0.com/authorize?audience=https://drinks/&response_type=token&client_id=atWlpT2VYTzcymmUjIhl48yOSohdsxPt&redirect_uri=https://127.0.0.1:4200/
+example: https://md0403.eu.auth0.com/authorize?audience=https://drinks/&response_type=token&client_id=atWlpT2VYTzcymmUjIhl48yOSohdsxPt&redirect_uri=http://127.0.0.1:8100/tabs/user-page
 
 
 
