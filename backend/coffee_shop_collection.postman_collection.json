@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fdd73ee3-a235-4c32-9253-1bae5874a793",
+		"_postman_id": "627333d9-36dc-44a9-b489-790be30ccdfb",
 		"name": "coffee_shop_collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -626,7 +626,7 @@
 	],
 	"variable": [
 		{
-			"id": "511f941b-2e2d-48d9-a9a2-7d8146c7d40c",
+			"id": "a5ab3a11-3965-4743-ae92-ca1bf6b75043",
 			"key": "host",
 			"value": "localhost:5000",
 			"type": "string"
