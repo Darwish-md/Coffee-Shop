@@ -30,6 +30,7 @@ db_drop_and_create_all()
         or appropriate status code indicating reason for failure
 '''
 
+
 @app.route("/drinks", methods = ["GET"])
 def get_drinks():
     drinks_short_recipe = Drink.query.order_by(Drink.id).all()
@@ -49,6 +50,7 @@ def get_drinks():
     returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
+
 
 @app.route("/drinks-detail", methods = ["GET"])
 @requires_auth("get:drinks-detail")
@@ -70,6 +72,7 @@ def get_drinks_details():
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
         or appropriate status code indicating reason for failure
 '''
+
 
 @app.route("/drinks", methods = ["POST"])
 @requires_auth("post:drinks")
@@ -147,6 +150,8 @@ def edit_drink(id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
+
+
 @app.route("/drinks/<id>", methods = ["DELETE"])
 @requires_auth('delete:drinks')
 def delete_drink(id):
@@ -169,6 +174,7 @@ def delete_drink(id):
 
 # Error Handling
 
+
 @app.errorhandler(422)
 def not_found(error=None):
     message = {
@@ -185,6 +191,7 @@ def not_found(error=None):
 @TODO implement error handler for 404
 '''
 
+
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
@@ -197,6 +204,7 @@ def not_found(error=None):
 
     return resp
 
+
 @app.errorhandler(500)
 def not_found(error=None):
     message = {
@@ -208,6 +216,7 @@ def not_found(error=None):
     resp.status_code = 500
 
     return resp
+
 
 @app.errorhandler(400)
 def not_found(error=None):
@@ -223,6 +232,7 @@ def not_found(error=None):
 '''
 @TODO implement error handler for AuthError
 '''
+
 
 @app.errorhandler(AuthError)
 def handle_auth_error(ex):
