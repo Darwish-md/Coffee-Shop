@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "627333d9-36dc-44a9-b489-790be30ccdfb",
+		"_postman_id": "4572bb37-09ac-4dd4-93c0-f27bacf086e3",
 		"name": "coffee_shop_collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -263,7 +263,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 401\", function () {",
-									"    pm.response.to.have.status(401);",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -293,7 +293,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 401\", function () {",
-									"    pm.response.to.have.status(401);",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -324,7 +324,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 401\", function () {",
-									"    pm.response.to.have.status(401);",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -626,7 +626,7 @@
 	],
 	"variable": [
 		{
-			"id": "a5ab3a11-3965-4743-ae92-ca1bf6b75043",
+			"id": "a08115d6-15ee-4923-9c4e-f7ea3ed40e8b",
 			"key": "host",
 			"value": "localhost:5000",
 			"type": "string"

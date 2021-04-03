@@ -26,7 +26,8 @@ db_drop_and_create_all()
     GET /drinks
         it should be a public endpoint
         it should contain only the drink.short() data representation
-    returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
+        returns status code 200 and json {"success": True, "drinks": drinks}
+        where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
 
@@ -46,7 +47,8 @@ def get_drinks():
     GET /drinks-detail
         it should require the 'get:drinks-detail' permission
         it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
+        returns status code 200 and json {"success": True, "drinks": drinks}
+        where drinks is the list of drinks
         or appropriate status code indicating reason for failure
 '''
 
@@ -58,9 +60,10 @@ def get_drinks_details():
     drinks = [drink.long() for drink in drinks_detailed_recipe]
 
     return jsonify({
-        "success": True, 
+        "success": True,
         "drinks": drinks
     })
+
 
 '''
 @TODO implement endpoint
@@ -68,7 +71,8 @@ def get_drinks_details():
         it should create a new row in the drinks table
         it should require the 'post:drinks' permission
         it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
+        returns status code 200 and json {"success": True, "drinks": drink}
+        where drink an array containing only the newly created drink
         or appropriate status code indicating reason for failure
 '''
 
@@ -77,7 +81,7 @@ def get_drinks_details():
 @requires_auth("post:drinks")
 def add_drink():
     body = request.get_json()
-    try: 
+    try:
         title = body.get("title")
         recipe = body.get("recipe")
         new_drink = Drink(title=title, recipe=recipe)
@@ -90,9 +94,10 @@ def add_drink():
         return jsonify({
             "success": True,
             "drinks": [new_drink.long()]
-            })
+        })
     except:
         abort(422)
+
 
 '''
 @TODO implement endpoint
@@ -102,7 +107,8 @@ def add_drink():
         it should update the corresponding row for <id>
         it should require the 'patch:drinks' permission
         it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
+        returns status code 200 and json {"success": True, "drinks": drink}
+        where drink an array containing only the updated drink
         or appropriate status code indicating reason for failure
 '''
 
@@ -131,11 +137,12 @@ def edit_drink(id):
             abort(500)
 
         return jsonify({
-            "success": True, 
+            "success": True,
             "drinks": [drink.long()]
-            })
+        })
     except:
         abort(422)
+
 
 '''
 @TODO implement endpoint
@@ -144,7 +151,8 @@ def edit_drink(id):
         it should respond with a 404 error if <id> is not found
         it should delete the corresponding row for <id>
         it should require the 'delete:drinks' permission
-    returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
+        returns status code 200 and json {"success": True, "delete": id}
+        where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
 
@@ -172,14 +180,15 @@ def delete_drink(id):
 @app.errorhandler(422)
 def not_found(error=None):
     message = {
-            'success': False,
-            'error': 422,
-            'message': 'unprocessable'
+        'success': False,
+        'error': 422,
+        'message': 'unprocessable'
     }
     resp = jsonify(message)
     resp.status_code = 422
 
     return resp
+
 
 '''
 @TODO implement error handler for 404
@@ -189,9 +198,9 @@ def not_found(error=None):
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
-            'success': False,
-            'error': 404,
-            'message': 'resource not found: ' + request.url
+        'success': False,
+        'error': 404,
+        'message': 'resource not found: ' + request.url
     }
     resp = jsonify(message)
     resp.status_code = 404
@@ -202,9 +211,9 @@ def not_found(error=None):
 @app.errorhandler(500)
 def not_found(error=None):
     message = {
-            'success': False,
-            'error': 500,
-            'message': 'internal server error'
+        'success': False,
+        'error': 500,
+        'message': 'internal server error'
     }
     resp = jsonify(message)
     resp.status_code = 500
@@ -215,14 +224,16 @@ def not_found(error=None):
 @app.errorhandler(400)
 def not_found(error=None):
     message = {
-            'success': False,
-            'error': 400,
-            'message': 'Bad request'
+        'success': False,
+        'error': 400,
+        'message': 'Bad request'
     }
     resp = jsonify(message)
     resp.status_code = 400
 
     return resp
+
+
 '''
 @TODO implement error handler for AuthError
 '''
@@ -235,9 +246,7 @@ def handle_auth_error(ex):
     return response
 
 
-#----------------------------------------------------------------------------#
 # Launch.
-#----------------------------------------------------------------------------#
 
 # Default port:
 if __name__ == '__main__':
