@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3aec50aa-c42e-4d15-8940-5081adce7fa3",
+		"_postman_id": "fdd73ee3-a235-4c32-9253-1bae5874a793",
 		"name": "coffee_shop_collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -164,6 +164,26 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -333,7 +353,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ing1azZHei16dndRUmVqMVUtc1JZXyJ9.eyJpc3MiOiJodHRwczovL21kMDQwMy5ldS5hdXRoMC5jb20vIiwic3ViIjoibGlua2VkaW58cjlKLVBoRy0yUyIsImF1ZCI6Imh0dHBzOi8vZHJpbmtzLyIsImlhdCI6MTYxNzQxNTUzNywiZXhwIjoxNjE3NDIyNzM3LCJhenAiOiJhdFdscFQyVllUemN5bW1VaklobDQ4eU9Tb2hkc3hQdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmRyaW5rcy1kZXRhaWwiXX0.G9Y2GHmj0ZJVdIkJiac5ge9dPxziFGkymvtWjxKNHEol_3WqBz2QtI7XqJtN-feZ9x2tmgyIYC-Yam6xnAyKivSpRm3NJvr1qI7zGz6Lj5rYRARMzUMrJ9J6H4XtRDjkPlwBvIWQf0m3MkIUMl3gAYmpgnsVSHZinuOYxhfKq-aThPGNcI6L_wuwmacJeSOiP7DAVRlv6d2B6HSgNSrxIvY0Cy1x4hacFxKqPem-o9kQnXLmug7H905URnh-oJn9X3s_y9ZKThboNlpFCeb3ZpXTsPQtkBgsj7xtC2dGfMENMrR30IaJP8e5ePJo1-ACd7I6cgldPVZ3-EE1FExyxw",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ing1azZHei16dndRUmVqMVUtc1JZXyJ9.eyJpc3MiOiJodHRwczovL21kMDQwMy5ldS5hdXRoMC5jb20vIiwic3ViIjoibGlua2VkaW58cjlKLVBoRy0yUyIsImF1ZCI6Imh0dHBzOi8vZHJpbmtzLyIsImlhdCI6MTYxNzQ3NjI3OCwiZXhwIjoxNjE3NTYyNjc4LCJhenAiOiJhdFdscFQyVllUemN5bW1VaklobDQ4eU9Tb2hkc3hQdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmRyaW5rcy1kZXRhaWwiXX0.TFw_pc1THOoYhgjjyR6IryWvjc73OJJPUEBXHfI_ZZDeQ2GcACtms445q1j4DUpo8aBG1fxdw_CrHnwo2j83QFVWpKptu6P02ef7f7Dj2_Y1JaGKEgyb5sb9bA35a7Hno0uX5bEGDzIXOD8uE7AuKDpyvmHWhQW0dSjfD0XXyXQUEINwxNIRpPP7NxvMMGHOU9VpltdIj56X9-cCROg-PaUZHvjIKIHqSX7is0-mUt2kI4iakpIOpZG22rtQNzjtEI-7GVDhblBhwZaTHHBTN2EHsTbpcjDpZsjz3d-olNUNvfrZdR82eGiPHSH8iZFOovwljKyurq2XA7b2Jq0xRA",
 						"type": "string"
 					}
 				]
@@ -557,7 +577,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ing1azZHei16dndRUmVqMVUtc1JZXyJ9.eyJpc3MiOiJodHRwczovL21kMDQwMy5ldS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTQxNDk4NTU4ODAxMjIwODA2OTkiLCJhdWQiOiJodHRwczovL2RyaW5rcy8iLCJpYXQiOjE2MTc0MTUxODcsImV4cCI6MTYxNzQyMjM4NywiYXpwIjoiYXRXbHBUMlZZVHpjeW1tVWpJaGw0OHlPU29oZHN4UHQiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpkcmlua3MiLCJnZXQ6ZHJpbmtzLWRldGFpbCIsInBhdGNoOmRyaW5rcyIsInBvc3Q6ZHJpbmtzIl19.i2QbW-LJwbvsgbvAd6hSs6IMvX4Pyju6ta7kosJt2TzQWUp3TJGfVzTp-MzKOwZQXJutRIbMJB2rdOXeccAHHcCzbsSDLJ3nP7_dZNWnPK1qdzVOLzss0dDfoEtYX-RmZtLeA0sxxGYIhdvmFb4d2pjIIrHWyqhDMMWjB8f2Gbyuvu4QvCOxLDPhwhNksbyGoaa-89KJ5BROTQcy5V5aWXqcMMfB-Utx17Eo0ztb0O06cTX2HdBhUjX9yAPAKIn2Xuz7QhlWCKXGX0H7W4neaORv_DtjJOcNC0YTiodfFR8EK8tNLVryZcJVOoxJhCrQLSPO1Vqzec0qr_9V-fqQ5w",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ing1azZHei16dndRUmVqMVUtc1JZXyJ9.eyJpc3MiOiJodHRwczovL21kMDQwMy5ldS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTQxNDk4NTU4ODAxMjIwODA2OTkiLCJhdWQiOiJodHRwczovL2RyaW5rcy8iLCJpYXQiOjE2MTc0NzYxOTIsImV4cCI6MTYxNzU2MjU5MiwiYXpwIjoiYXRXbHBUMlZZVHpjeW1tVWpJaGw0OHlPU29oZHN4UHQiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpkcmlua3MiLCJnZXQ6ZHJpbmtzLWRldGFpbCIsInBhdGNoOmRyaW5rcyIsInBvc3Q6ZHJpbmtzIl19.tyBW7IegXhBcLUNvfbhtqurg0IyxSGTM-plvt17qDmqCK0h8vC2G1aFKMzgq5xaVrDkI3oegl6MmgXWFYynLP5_CfjsKEy2j-DP7OZVuJmVbQW0vS5EX2CtTlhoBT58YfHxZANNh7B9lKjogHR6xAaVXKxJKcER7XwcMKR2m0MqWbl8jzPNR9edllJm9QDe_Z2anl6-HvK82xJN6ENjcFShQtUBquZNtmACHOA1J3hL7trfgMVZGvppfmzRVHuLQw4jUQRWz3xwkeVL1v1LZclo-cwlweYKWebT-cXOeUPmPg6p2x0sie9m2ruEbsrHxQozZBaK8qO28-hUrOl6vpQ",
 						"type": "string"
 					}
 				]
@@ -606,7 +626,7 @@
 	],
 	"variable": [
 		{
-			"id": "ec245b0e-e0f9-49d7-92ca-fa568d63cbd5",
+			"id": "511f941b-2e2d-48d9-a9a2-7d8146c7d40c",
 			"key": "host",
 			"value": "localhost:5000",
 			"type": "string"
