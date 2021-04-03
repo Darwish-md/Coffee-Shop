@@ -31,11 +31,10 @@ db_drop_and_create_all()
 '''
 
 
-@app.route("/drinks", methods = ["GET"])
+@app.route("/drinks", methods=["GET"])
 def get_drinks():
     drinks_short_recipe = Drink.query.order_by(Drink.id).all()
-    drinks= [drink.short() for drink in drinks_short_recipe]
-    
+    drinks = [drink.short() for drink in drinks_short_recipe]
     return jsonify({
         "success": True,
         "drinks": drinks
@@ -52,7 +51,7 @@ def get_drinks():
 '''
 
 
-@app.route("/drinks-detail", methods = ["GET"])
+@app.route("/drinks-detail", methods=["GET"])
 @requires_auth("get:drinks-detail")
 def get_drinks_details():
     drinks_detailed_recipe = Drink.query.order_by(Drink.id).all()
@@ -74,14 +73,14 @@ def get_drinks_details():
 '''
 
 
-@app.route("/drinks", methods = ["POST"])
+@app.route("/drinks", methods=["POST"])
 @requires_auth("post:drinks")
 def add_drink():
     body = request.get_json()
     try: 
         title = body.get("title")
         recipe = body.get("recipe")
-        new_drink = Drink(title = title, recipe = recipe)
+        new_drink = Drink(title=title, recipe=recipe)
 
         try:
             new_drink.insert()
@@ -108,11 +107,10 @@ def add_drink():
 '''
 
 
-@app.route("/drinks/<id>", methods = ["PATCH"])
+@app.route("/drinks/<id>", methods=["PATCH"])
 @requires_auth("patch:drinks")
 def edit_drink(id):
     body = request.get_json()
-    
     try:
         title = body.get("title", None)
         recipe = body.get("recipe", None)
@@ -127,7 +125,6 @@ def edit_drink(id):
 
         if recipe:
             drink.recipe = recipe
-    
         try:
             drink.update()
         except:
@@ -152,20 +149,17 @@ def edit_drink(id):
 '''
 
 
-@app.route("/drinks/<id>", methods = ["DELETE"])
+@app.route("/drinks/<id>", methods=["DELETE"])
 @requires_auth('delete:drinks')
 def delete_drink(id):
-    drink = Drink.query.filter_by(id = id).one_or_none()
+    drink = Drink.query.filter_by(id=id).one_or_none()
 
     if drink is None:
         abort(404)
-    
     try:
         drink.delete()
     except:
         abort(500)
-    
-
     return jsonify({
         "success": True,
         "delete": id
@@ -248,7 +242,3 @@ def handle_auth_error(ex):
 # Default port:
 if __name__ == '__main__':
     app.run()
-
-
-
-

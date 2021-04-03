@@ -9,18 +9,20 @@ AUTH0_DOMAIN = 'md0403.eu.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'https://drinks/'
 
-## AuthError Exception
+# AuthError Exception
 '''
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
+
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
 
 
-## Auth Header
+# Auth Header
 
 '''
 @TODO implement get_token_auth_header() method
@@ -30,6 +32,8 @@ class AuthError(Exception):
         it should raise an AuthError if the header is malformed
     return the token part of the header
 '''
+
+
 def get_token_auth_header():
     """Obtains the Access Token from the Authorization Header
     """
@@ -37,7 +41,7 @@ def get_token_auth_header():
     if not auth:
         raise AuthError({
             "code": "authorization_header_missing",
-            "description":"Authorization header is expected"
+            "description": "Authorization header is expected"
             }, 401)
 
     parts = auth.split()
@@ -72,6 +76,8 @@ def get_token_auth_header():
 
     !!NOTE urlopen has a common certificate error described here: https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
 '''
+
+
 def verify_decode_jwt(token):
         jsonurl = urlopen("https://"+AUTH0_DOMAIN+"/.well-known/jwks.json")
         jwks = json.loads(jsonurl.read())
@@ -95,9 +101,7 @@ def verify_decode_jwt(token):
                     audience=API_AUDIENCE,
                     issuer="https://"+AUTH0_DOMAIN+"/"
                 )
-        
                 return payload
-                
             except jwt.ExpiredSignatureError:
                 raise AuthError({"code": "token_expired",
                                 "description": "token is expired"}, 401)
@@ -126,6 +130,8 @@ def verify_decode_jwt(token):
     it should raise an AuthError if the requested permission string is not in the payload permissions array
     return true otherwise
 '''
+
+
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
         raise AuthError({
@@ -151,6 +157,8 @@ def check_permissions(permission, payload):
     it should use the check_permissions method validate claims and check the requested permission
     return the decorator which passes the decoded payload to the decorated method
 '''
+
+
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
