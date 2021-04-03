@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, abort
 from sqlalchemy import exc
 import json
 from flask_cors import CORS
+import werkzeug
 
 from database.models import db_drop_and_create_all, setup_db, Drink
 from auth.auth import AuthError, requires_auth
@@ -86,16 +87,16 @@ def add_drink():
         recipe = body.get("recipe")
         new_drink = Drink(title=title, recipe=recipe)
 
-        try:
-            new_drink.insert()
-        except:
-            abort(500)
+        new_drink.insert()
 
         return jsonify({
             "success": True,
             "drinks": [new_drink.long()]
         })
-    except:
+
+    except werkzeug.exceptions.InternalServerError:
+        abort(500)
+    except werkzeug.exceptions.UnprocessableEntity:
         abort(422)
 
 
@@ -131,16 +132,17 @@ def edit_drink(id):
 
         if recipe:
             drink.recipe = recipe
-        try:
-            drink.update()
-        except:
-            abort(500)
+
+        drink.update()
 
         return jsonify({
             "success": True,
             "drinks": [drink.long()]
         })
-    except:
+
+    except werkzeug.exceptions.InternalServerError:
+        abort(500)
+    except werkzeug.exceptions.UnprocessableEntity:
         abort(422)
 
 
@@ -166,19 +168,21 @@ def delete_drink(id):
         abort(404)
     try:
         drink.delete()
-    except:
+
+        return jsonify({
+            "success": True,
+            "delete": id
+        })
+
+    except werkzeug.exceptions.InternalServerError:
         abort(500)
-    return jsonify({
-        "success": True,
-        "delete": id
-    })
 
 
 # Error Handling
 
 
 @app.errorhandler(422)
-def not_found(error=None):
+def unprocessable(error=None):
     message = {
         'success': False,
         'error': 422,
@@ -209,7 +213,7 @@ def not_found(error=None):
 
 
 @app.errorhandler(500)
-def not_found(error=None):
+def internal_server_error(error=None):
     message = {
         'success': False,
         'error': 500,
@@ -222,7 +226,7 @@ def not_found(error=None):
 
 
 @app.errorhandler(400)
-def not_found(error=None):
+def bad_request(error=None):
     message = {
         'success': False,
         'error': 400,
