@@ -76,7 +76,7 @@ def get_drinks_details():
 '''
 
 @app.route("/drinks", methods = ["POST"])
-#@requires_auth("post:drinks")
+@requires_auth("post:drinks")
 def add_drink():
     body = request.get_json()
     try: 
@@ -154,7 +154,7 @@ def edit_drink(id):
 @app.route("/drinks/<id>", methods = ["DELETE"])
 @requires_auth('delete:drinks')
 def delete_drink(id):
-    drink = Drink.query.filter_by(id).one_or_none()
+    drink = Drink.query.filter_by(id = id).one_or_none()
 
     if drink is None:
         abort(404)
